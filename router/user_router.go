@@ -1,13 +1,13 @@
 package router
 
-import (
-	"github.com/gorilla/mux"
-)
+func CreateUser() {
+
+}
 
 // Router handler
 
 func HandleRouter() {
-	router := mux.NewRouter().StrictSlash(true)
-	api := router.PathPrefix("/api").Subrouter()
+	//router := mux.NewRouter().StrictSlash(true)
+	//api := router.PathPrefix("/api").Subrouter()
 
 }
