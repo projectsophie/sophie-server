@@ -1,13 +1,20 @@
 package router
 
-func CreateUser() {
+import (
+	"encoding/json"
+	"github.com/gorilla/mux"
+	"net/http"
+)
 
+// CreateUser Creates user instance and adds it to database
+func CreateUser(writer http.ResponseWriter, req *http.Request) {
+	_ = json.NewEncoder(writer).Encode("уютненько")
 }
 
-// Router handler
-
-func HandleRouter() {
-	//router := mux.NewRouter().StrictSlash(true)
-	//api := router.PathPrefix("/api").Subrouter()
-
+// InitUserRouter Initializes a sub-router for router
+// which was passed as an argument.
+func InitUserRouter(router *mux.Router) *mux.Router {
+	subRouter := router.PathPrefix("/users").Subrouter()
+	subRouter.HandleFunc("/test", CreateUser)
+	return subRouter
 }

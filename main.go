@@ -17,6 +17,7 @@ func main() {
 	InitServer("127.0.0.1", 8080)
 }
 
+// InitServer Initializes server and routers
 func InitServer(host string, port int) {
 	address := host + ":" + strconv.Itoa(port)
 	log.Printf("Sophie server listening on http://%s", address)
