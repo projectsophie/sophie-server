@@ -1,16 +1,27 @@
 package main
 
 import (
-	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
+	"log"
+	"net/http"
+	"sophie-server/controller"
+	"sophie-server/database"
+	"strconv"
 )
 
-func InitDB() {
-	usersDatabase, _ = sql.Open("sqlite3", "./users.db")
-	statement, _ := usersDatabase.Prepare("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, firstname TEXT, lastname TEXT, nickname TEXT, password TEXT, email TEXT, email_verified BOOLEAN, workspaces INTEGER []);")
-	statement.Exec()
+func main() {
+	log.Println("Initializing a Sophie server...")
+	log.Println("Initializing databases...")
+	database.InitDB(true, true)
+	log.Println("Databases were initialized successfully.")
+	log.Println("Initializing server...")
+	InitServer("127.0.0.1", 8080)
 }
 
-func main() {
-	InitDB()
+func InitServer(host string, port int) {
+	address := host + ":" + strconv.Itoa(port)
+	log.Printf("Sophie server listening on http://%s", address)
+	err := http.ListenAndServe(address, controller.InitRouter())
+	if err != nil {
+		panic("Couldn't initialize server due error.")
+	}
 }
