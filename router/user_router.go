@@ -1,14 +1,15 @@
 package router
 
 import (
-	"encoding/json"
 	"github.com/gorilla/mux"
 	"net/http"
+	"sophie-server/database"
 )
 
 // CreateUser Creates user instance and adds it to database
 func CreateUser(writer http.ResponseWriter, req *http.Request) {
-	_ = json.NewEncoder(writer).Encode("уютненько")
+	statement, _ := database.GetUsersDB().Prepare(database.CREATE_USER)
+	_, _ = statement.Exec("Maxim", "Bataron", "dion", "test123", "test@gmail.com")
 }
 
 // InitUserRouter Initializes a sub-router for router
