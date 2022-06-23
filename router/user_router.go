@@ -13,8 +13,7 @@ func CreateUser(writer http.ResponseWriter, req *http.Request) {
 
 // InitUserRouter Initializes a sub-router for router
 // which was passed as an argument.
-func InitUserRouter(router *mux.Router) *mux.Router {
+func InitUserRouter(router *mux.Router) {
 	subRouter := router.PathPrefix("/users").Subrouter()
 	subRouter.HandleFunc("/test", CreateUser)
-	return subRouter
 }

@@ -19,13 +19,13 @@ var (
 func InitDB(users bool, workspaces bool) {
 	if users {
 		usersDatabase, _ = sql.Open("sqlite3", "./users.db")
-		statement, _ := usersDatabase.Prepare("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, firstname TEXT, lastname TEXT, nickname TEXT, password TEXT, email TEXT, email_verified BOOLEAN, workspaces INTEGER []);")
+		statement, _ := usersDatabase.Prepare("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, firstname TEXT, lastname TEXT, nickname TEXT, password TEXT, email TEXT, emailVerified BOOLEAN, workspaces INTEGER []);")
 		_, _ = statement.Exec()
 		log.Println("Users database was initialized successfully.")
 	}
 	if workspaces {
 		workspacesDatabase, _ = sql.Open("sqlite3", "./workspaces.db")
-		statement, _ := workspacesDatabase.Prepare("CREATE TABLE IF NOT EXISTS workspaces (id INTEGER PRIMARY KEY, members TEXT []);")
+		statement, _ := workspacesDatabase.Prepare("CREATE TABLE IF NOT EXISTS workspaces (id INTEGER PRIMARY KEY, members TEXT [], pages TEXT []);")
 		_, _ = statement.Exec()
 		log.Println("Workspaces database was initialized successfully.")
 	}
