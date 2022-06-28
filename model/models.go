@@ -20,3 +20,11 @@ type Workspace struct {
 	members string // members are "members" field in database. (Contains json of members with their ids and permissions)
 	pages   string // pages is "pages" field in database. (Contains json of pages with their metadata and types)
 }
+
+// ServerMessage is a struct which
+// describes a server message instance.
+// It is used for building server responses to API requests.
+type ServerMessage struct {
+	Title   string
+	Message string
+}

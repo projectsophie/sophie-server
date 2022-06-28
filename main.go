@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"sophie-server/controller"
 	"sophie-server/database"
 	"strconv"
@@ -26,7 +25,8 @@ func main() {
 func InitServer(host string, port int) {
 	address := host + ":" + strconv.Itoa(port)
 	log.Printf("Sophie server listening on http://%s", address)
-	err := http.ListenAndServe(address, controller.InitRouter())
+	controller.InitRouter()
+	err := controller.GetRouter().Run(address)
 	if err != nil {
 		panic("Couldn't initialize server due error.")
 	}
