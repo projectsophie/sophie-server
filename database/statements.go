@@ -2,7 +2,7 @@ package database
 
 // Constant SQL statements
 const (
-	USERS_PREPARE      = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, firstname TEXT NOT NULL, lastname TEXT NOT NULL, nickname TEXT NOT NULL, password TEXT NOT NULL, email TEXT NOT NULL, emailVerified BOOLEAN DEFAULT FALSE, workspaces INTEGER [] DEFAULT []);"
+	USERS_PREPARE      = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, firstname TEXT NOT NULL, lastname TEXT NOT NULL, nickname TEXT NOT NULL UNIQUE, password TEXT NOT NULL, email TEXT NOT NULL UNIQUE, emailVerified BOOLEAN DEFAULT FALSE, workspaces INTEGER [] DEFAULT []);"
 	WORKSPACES_PREPARE = "CREATE TABLE IF NOT EXISTS workspaces (id INTEGER PRIMARY KEY, members TEXT, pages TEXT [] DEFAULT []);"
 
 	CREATE_USER             = "INSERT INTO users (firstname, lastname, nickname, password, email) VALUES (?, ?, ?, ?, ?)"

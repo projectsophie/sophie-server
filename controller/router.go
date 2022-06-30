@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"sophie-server/store"
+	controller "sophie-server/router"
 )
 
 var router *gin.Engine
@@ -15,8 +15,7 @@ func GetRouter() *gin.Engine {
 }
 
 func InitUserRoutes() {
-	router.GET("/api/test", store.Test)
-	router.POST("/api/users/create", store.CreateUser)
+	router.POST("/api/users/create", controller.CreateUser)
 }
 
 func InitRouter() {
