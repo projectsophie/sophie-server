@@ -3,25 +3,20 @@ package service
 import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
-	"os"
 	"time"
 )
 
 // GetSecretKey returns a key for creating and validating JWT tokens.
 // If secret key doesn't exist, it will be generated.
 func GetSecretKey() string {
-	secret := os.Getenv("JWT_SECRET")
-	if secret == "" {
-		secret = "some_jwt_secret_lol"
-	}
-	return secret
+	return "SOME_JWT_SECRET_KEY"
 }
 
 // GenerateToken generates JWT token via nickname and current server time.
 func GenerateToken(nickname string) string {
 	data := jwt.StandardClaims{
 		ExpiresAt: time.Now().Add(time.Hour * 720).Unix(),
-		Issuer:    "sophie-server",
+		Issuer:    nickname,
 		IssuedAt:  time.Now().Unix(),
 	}
 	rawToken := jwt.NewWithClaims(jwt.SigningMethodHS256, data)

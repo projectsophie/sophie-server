@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sophie-server/model"
+	"sophie-server/service"
 	"sophie-server/store"
 )
 
@@ -14,4 +15,13 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	c.IndentedJSON(http.StatusOK, store.CreateUser(userCreate))
+}
+
+func AuthUser(c *gin.Context) {
+	token := service.Login(c)
+	if token != "" {
+		c.JSON(http.StatusOK, gin.H{"token": token})
+	} else {
+		c.JSON(http.StatusUnauthorized, nil)
+	}
 }

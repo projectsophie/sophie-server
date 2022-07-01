@@ -3,14 +3,14 @@ package model
 // User is a struct which
 // describes a user instance for database.
 type User struct {
-	id            int    // id is "id" field in database.
-	firstname     string // firstname is "firstname" field in database.
-	lastname      string // lastname is "lastname" field in database.
-	nickname      string // nickname is "nickname" field in database.
-	password      string // password is "password" field in database. (Hashed)
-	email         string // email is "email" field in database.
-	emailVerified bool   // emailVerified is "emailVerified" field in database.
-	workspaces    []int  // workspaces are "workspaces" field in database. (Contains ids of workspaces declared in workspaces database)
+	ID            int    // ID is "id" field in database.
+	Firstname     string // Firstname is "firstname" field in database.
+	Lastname      string // Lastname is "lastname" field in database.
+	Nickname      string // Nickname is "nickname" field in database.
+	Password      string // Password is "password" field in database. (Hashed)
+	Email         string // Email is "email" field in database.
+	EmailVerified bool   // EmailVerified is "emailVerified" field in database.
+	Workspaces    string // Workspaces are "workspaces" field in database. (Contains ids of workspaces declared in workspaces database)
 }
 
 // Workspace is a struct which
