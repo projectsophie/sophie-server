@@ -25,6 +25,8 @@ func CreateUser(model model.UserCreate) gin.H {
 	return gin.H{"message": "a new user was successfully created"}
 }
 
+// GetUserByNickname returns user instance by provided nickname
+// if it was found in database.
 func GetUserByNickname(nickname string) (model.User, bool) {
 	statement, _ := database.GetUsersDB().Prepare(database.GET_USER_BY_NICKNAME)
 	rows, _ := statement.Query(nickname)
@@ -32,11 +34,8 @@ func GetUserByNickname(nickname string) (model.User, bool) {
 	for rows.Next() {
 		err := rows.Scan(&user.ID, &user.Firstname, &user.Lastname, &user.Nickname, &user.Password, &user.Email, &user.EmailVerified, &user.Workspaces)
 		if err != nil {
-			fmt.Println("======== error:" + err.Error())
 			return model.User{}, false
 		}
 	}
-	fmt.Println("=========================================================")
-	fmt.Println(user)
 	return user, true
 }

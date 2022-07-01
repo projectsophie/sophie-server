@@ -5,6 +5,8 @@ import (
 	schemes "sophie-server/model"
 )
 
+// Login is a method
+// that generates a JWT token for user via gin's context.
 func Login(ctx *gin.Context) string {
 	var model schemes.UserAuth
 	err := ctx.ShouldBind(&model)

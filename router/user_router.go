@@ -17,6 +17,8 @@ func CreateUser(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, store.CreateUser(userCreate))
 }
 
+// AuthUser is a method that generates a JWT token for user via gin's context
+// or rejects the request if user data is not valid and not found in database.
 func AuthUser(c *gin.Context) {
 	token := service.Login(c)
 	if token != "" {
