@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"sophie-server/database"
 	"sophie-server/model"
+	"sophie-server/service"
 	"sophie-server/util"
 	"strings"
 )
@@ -38,4 +39,17 @@ func GetUserByNickname(nickname string) (model.User, bool) {
 		}
 	}
 	return user, true
+}
+
+// GetAuthedUser returns user instance (model.UserGet) by provided token.
+func GetAuthedUser(token string) (model.UserGet, bool) {
+	claims, err := service.ParseToken(token)
+	if err != nil {
+		return model.UserGet{}, false
+	}
+	user, success := GetUserByNickname(claims["Issuer"].(string))
+	if success {
+		return model.UserToUserGet(user), true
+	}
+	return model.UserGet{}, false
 }

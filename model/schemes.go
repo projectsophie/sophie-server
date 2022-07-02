@@ -17,3 +17,13 @@ type UserAuth struct {
 	Username string `json:"username" form:"username" binding:"required"`
 	Password string `json:"password" form:"password" binding:"required"`
 }
+
+// UserGet is a struct which
+// describes a user instance while getting.
+type UserGet struct {
+	Firstname  string `json:"firstname" form:"firstname"`
+	Lastname   string `json:"lastname" form:"lastname"`
+	Nickname   string `json:"nickname" form:"nickname"`
+	Email      string `json:"email" form:"email"`
+	Workspaces string `json:"workspaces" form:"workspaces"`
+}

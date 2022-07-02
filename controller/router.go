@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"sophie-server/middleware"
 	routers "sophie-server/router"
 )
 
@@ -19,6 +20,10 @@ func GetRouter() *gin.Engine {
 
 // InitUserRoutes initializes user routes.
 func InitUserRoutes() {
+	userRoutes := router.Group("/api/user", middleware.AuthorizeJWT())
+	{
+		userRoutes.GET("/me", routers.GetCurrentUser)
+	}
 	router.POST("/api/users/create", routers.CreateUser)
 	router.POST("/api/users/auth", routers.AuthUser)
 }

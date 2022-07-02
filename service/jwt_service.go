@@ -37,3 +37,15 @@ func ValidateToken(tokenStr string) (*jwt.Token, error) {
 		return []byte(GetSecretKey()), nil
 	})
 }
+
+// ParseToken parses provided token and returns its claims.
+func ParseToken(tokenStr string) (jwt.MapClaims, error) {
+	claims := jwt.MapClaims{}
+	_, err := jwt.ParseWithClaims(tokenStr, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte(GetSecretKey()), nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return claims, nil
+}

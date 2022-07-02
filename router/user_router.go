@@ -27,3 +27,7 @@ func AuthUser(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, nil)
 	}
 }
+
+func GetCurrentUser(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, GetCurrentUser)
+}
