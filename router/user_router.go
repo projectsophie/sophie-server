@@ -29,5 +29,12 @@ func AuthUser(c *gin.Context) {
 }
 
 func GetCurrentUser(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, GetCurrentUser)
+	authHeader := c.GetHeader("Authorization")
+	tokenRaw := authHeader[len("Bearer "):]
+	userGet, success := store.GetAuthedUser(tokenRaw)
+	if success {
+		c.IndentedJSON(http.StatusOK, userGet)
+	} else {
+		c.JSON(http.StatusUnauthorized, nil)
+	}
 }

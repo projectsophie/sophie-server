@@ -47,7 +47,7 @@ func GetAuthedUser(token string) (model.UserGet, bool) {
 	if err != nil {
 		return model.UserGet{}, false
 	}
-	user, success := GetUserByNickname(claims["Issuer"].(string))
+	user, success := GetUserByNickname(claims["iss"].(string))
 	if success {
 		return model.UserToUserGet(user), true
 	}
