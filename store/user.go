@@ -8,6 +8,7 @@ import (
 	"sophie-server/service"
 	"sophie-server/util"
 	"strings"
+	"time"
 )
 
 // CreateUser Creates user instance and adds it to database
@@ -17,7 +18,7 @@ func CreateUser(model model.UserCreate) gin.H {
 	}
 	statement, _ := database.GetUsersDB().Prepare(database.CREATE_USER)
 	password := util.GenerateHash([]byte(model.Password))
-	_, err := statement.Exec(model.Firstname, model.Lastname, model.Nickname, password, model.Email)
+	_, err := statement.Exec(model.Firstname, model.Lastname, model.Nickname, password, model.Email, time.Now().Format("2006-01-02 15:04:05"))
 	if err != nil {
 		array := strings.Split(err.Error(), ".")
 		return gin.H{"error": fmt.Sprintf("an user with this %s already exist", array[len(array)-1])}
