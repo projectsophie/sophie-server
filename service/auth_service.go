@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/gin-gonic/gin"
 	schemes "sophie-server/model"
+	"sophie-server/util"
 )
 
 // Login is a method
@@ -15,7 +16,7 @@ func Login(ctx *gin.Context) string {
 	}
 	isAuthed := LoginVerify(model.Username, model.Password)
 	if isAuthed {
-		return GenerateToken(model.Username)
+		return util.GenerateToken(model.Username)
 	}
 	return ""
 }

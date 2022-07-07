@@ -11,6 +11,7 @@ const (
 	GET_USER_BY_ID          = "SELECT * FROM users WHERE id = @id"
 	GET_USER_BY_NICKNAME    = "SELECT * FROM users WHERE nickname = @nickname"
 	GET_USER_BY_EMAIL       = "SELECT * FROM users WHERE email = @email"
+	APPLY_SESSION_TO_USER   = "UPDATE users SET sessions = @sessions WHERE id = @id"
 
 	CREATE_WORKSPACE       = "INSERT INTO workspaces (owner) VALUES (?)"
 	DELETE_WORKSPACE_BY_ID = "DELETE FROM workspaces WHERE id = @id"

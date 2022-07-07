@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"sophie-server/database"
 	"sophie-server/model"
-	"sophie-server/service"
 	"sophie-server/util"
 	"strings"
 	"time"
@@ -42,9 +41,24 @@ func GetUserByNickname(nickname string) (model.User, bool) {
 	return user, true
 }
 
+// GetUserByID returns user instance by provided id
+// if it was found in database.
+func GetUserByID(id int) (model.User, bool) {
+	statement, _ := database.GetUsersDB().Prepare(database.GET_USER_BY_ID)
+	rows, _ := statement.Query(id)
+	var user model.User
+	for rows.Next() {
+		err := rows.Scan(&user.ID, &user.Firstname, &user.Lastname, &user.Nickname, &user.Password, &user.Email, &user.EmailVerified, &user.Workspaces)
+		if err != nil {
+			return model.User{}, false
+		}
+	}
+	return user, true
+}
+
 // GetAuthedUser returns user instance (model.UserGet) by provided token.
 func GetAuthedUser(token string) (model.UserGet, bool) {
-	claims, err := service.ParseToken(token)
+	claims, err := util.ParseToken(token)
 	if err != nil {
 		return model.UserGet{}, false
 	}
@@ -53,4 +67,10 @@ func GetAuthedUser(token string) (model.UserGet, bool) {
 		return model.UserToUserGet(user), true
 	}
 	return model.UserGet{}, false
+}
+
+// AppendSession appends a provided session
+// to user's sessions array who was provided by id.
+func AppendSession(id int, session *model.Session) {
+
 }

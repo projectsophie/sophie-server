@@ -23,3 +23,11 @@ type Workspace struct {
 	Members      string // members are "members" field in database. (Contains json of members with their ids and permissions)
 	Pages        string // pages is "pages" field in database. (Contains json of pages with their metadata and types)
 }
+
+// Session is a struct that represents a session.
+type Session struct {
+	ID           int    // ID is id of session.
+	CreationDate string // CreationDate is a creation date of session.
+	IP           string // IP is an IP-Address which was used for session creation.
+	UserAgent    string // UserAgent is a user agent which was used for session creation.
+}
