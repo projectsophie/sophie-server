@@ -20,9 +20,10 @@ func GetRouter() *gin.Engine {
 
 // InitUserRoutes initializes user routes.
 func InitUserRoutes() {
-	userRoutes := router.Group("/api/user", auth.AuthorizeJWT())
+	userRoutes := router.Group("/api/users", auth.AuthorizeJWT())
 	{
 		userRoutes.GET("/me", routers.GetCurrentUser)
+		userRoutes.GET("/logout", routers.Logout)
 	}
 	router.POST("/api/users/create", routers.CreateUser)
 	router.POST("/api/users/auth", routers.AuthUser)

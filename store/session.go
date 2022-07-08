@@ -15,10 +15,10 @@ func ApplySession(session model.Session, user *model.User) {
 
 // RemoveSession is a method
 // that removes a session from a user via session array in user struct.
-func RemoveSession(id int, user *model.User) {
+func RemoveSession(token string, user *model.User) {
 	sessionsArray := middleware.GetSessionsFromJson(user.Sessions)
 	for i := 0; i < len(sessionsArray); i++ {
-		if sessionsArray[i].ID == id {
+		if sessionsArray[i].AccessToken == token {
 			sessionsArray = append(sessionsArray[:i], sessionsArray[i+1:]...)
 			break
 		}

@@ -28,6 +28,8 @@ func AuthUser(c *gin.Context) {
 	}
 }
 
+// GetCurrentUser is a method that returns
+// current user instance via gin's context.
 func GetCurrentUser(c *gin.Context) {
 	authHeader := c.GetHeader("Authorization")
 	tokenRaw := authHeader[len("Bearer "):]
@@ -37,4 +39,11 @@ func GetCurrentUser(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusUnauthorized, nil)
 	}
+}
+
+func Logout(c *gin.Context) {
+	authHeader := c.GetHeader("Authorization")
+	tokenRaw := authHeader[len("Bearer "):]
+	store.DeleteSession(tokenRaw)
+	c.JSON(http.StatusOK, nil)
 }

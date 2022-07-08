@@ -56,21 +56,50 @@ func GetUserByID(id int) (model.User, bool) {
 	return user, true
 }
 
+// UpdateUser updates user instance in database
+// via provided user instance (*model.User).
+func UpdateUser(user *model.User) {
+	statement, _ := database.GetUsersDB().Prepare(database.UPDATE_USER)
+	_, err := statement.Exec(user.Firstname, user.Lastname, user.Nickname, user.Password, user.Email, user.EmailVerified, user.Sessions, user.Workspaces, user.ID)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
 // GetAuthedUser returns user instance (model.UserGet) by provided token.
 func GetAuthedUser(token string) (model.UserGet, bool) {
-	claims, err := util.ParseToken(token)
-	if err != nil {
-		return model.UserGet{}, false
-	}
-	user, success := GetUserByNickname(claims["iss"].(string))
-	if success {
+	if user, success := GetUserByToken(token); success {
 		return model.UserToUserGet(user), true
 	}
 	return model.UserGet{}, false
 }
 
-// AppendSession appends a provided session
-// to user's sessions array who was provided by id.
-func AppendSession(id int, session *model.Session) {
+// GetUserByToken returns user instance (model.User) by provided token.
+func GetUserByToken(token string) (model.User, bool) {
+	claims, err := util.ParseToken(token)
+	if err != nil {
+		return model.User{}, false
+	}
+	if user, success := GetUserByNickname(claims["iss"].(string)); success {
+		return user, true
+	}
+	return model.User{}, false
+}
 
+// AppendSession appends a provided session
+// to user's sessions array who was provided by token.
+func AppendSession(session model.Session) {
+	if user, success := GetUserByToken(session.AccessToken); success {
+		ApplySession(session, &user)
+		UpdateUser(&user)
+	}
+}
+
+// DeleteSession removes a provided session
+// from user's sessions array who was provided by token.
+func DeleteSession(token string) {
+	if user, success := GetUserByToken(token); success {
+		RemoveSession(token, &user)
+		UpdateUser(&user)
+	}
 }
