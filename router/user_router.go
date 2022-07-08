@@ -41,6 +41,7 @@ func GetCurrentUser(c *gin.Context) {
 	}
 }
 
+// Logout is a method that logs out user via gin's context.
 func Logout(c *gin.Context) {
 	authHeader := c.GetHeader("Authorization")
 	tokenRaw := authHeader[len("Bearer "):]
