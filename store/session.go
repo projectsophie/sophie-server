@@ -9,7 +9,8 @@ import (
 // that applies a session to a user via session array in user struct.
 func ApplySession(session model.Session, user *model.User) {
 	sessionsArray := middleware.GetSessionsFromJson(user.Sessions)
-	sessionsArray[len(sessionsArray)] = session
+	session.ID = len(sessionsArray)
+	sessionsArray = append(sessionsArray, session)
 	user.Sessions = middleware.ConvertSessionsToJson(sessionsArray)
 }
 

@@ -11,3 +11,12 @@ func UserToUserGet(user User) UserGet {
 		Workspaces: user.Workspaces,
 	}
 }
+
+// SessionCreateToSession converts SessionCreate to Session
+func SessionCreateToSession(session SessionCreate) Session {
+	return Session{
+		IP:          session.IP,
+		AccessToken: session.AccessToken,
+		UserAgent:   session.UserAgent,
+	}
+}

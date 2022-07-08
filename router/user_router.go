@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sophie-server/middleware/session"
 	"sophie-server/model"
 	"sophie-server/service"
 	"sophie-server/store"
@@ -22,6 +23,7 @@ func CreateUser(c *gin.Context) {
 func AuthUser(c *gin.Context) {
 	token := service.Login(c)
 	if token != "" {
+		store.AppendSession(session.GenerateSession(c, token))
 		c.JSON(http.StatusOK, gin.H{"token": token})
 	} else {
 		c.JSON(http.StatusUnauthorized, nil)

@@ -26,9 +26,10 @@ type Workspace struct {
 
 // Session is a struct that represents a session.
 type Session struct {
-	ID           int    // ID is id of session.
-	CreationDate string // CreationDate is a creation date of session.
-	IP           string // IP is an IP-Address which was used for session creation.
-	UserAgent    string // UserAgent is a user agent which was used for session creation.
-	AccessToken  string // AccessToken is an access token of session.
+	ID            int    // ID is id of session.
+	CreationDate  string // CreationDate is a creation date of session.
+	LastUsageDate string // LastUsageDate is a last usage date of session.
+	IP            string // IP is an IP-Address which was used for session creation.
+	UserAgent     string // UserAgent is a user agent which was used for session creation.
+	AccessToken   string // AccessToken is an access token of session.
 }

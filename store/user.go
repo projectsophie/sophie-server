@@ -22,7 +22,6 @@ func CreateUser(model model.UserCreate) gin.H {
 		array := strings.Split(err.Error(), ".")
 		return gin.H{"error": fmt.Sprintf("an user with this %s already exist", array[len(array)-1])}
 	}
-	GetUserByNickname(model.Nickname)
 	return gin.H{"message": "a new user was successfully created"}
 }
 
@@ -33,8 +32,9 @@ func GetUserByNickname(nickname string) (model.User, bool) {
 	rows, _ := statement.Query(nickname)
 	var user model.User
 	for rows.Next() {
-		err := rows.Scan(&user.ID, &user.Firstname, &user.Lastname, &user.Nickname, &user.Password, &user.Email, &user.EmailVerified, &user.Workspaces)
+		err := rows.Scan(&user.ID, &user.Firstname, &user.Lastname, &user.Nickname, &user.Password, &user.Email, &user.RegisterDate, &user.EmailVerified, &user.Sessions, &user.Workspaces)
 		if err != nil {
+			fmt.Println(err)
 			return model.User{}, false
 		}
 	}

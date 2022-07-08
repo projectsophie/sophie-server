@@ -31,7 +31,7 @@ type UserGet struct {
 // SessionCreate is a struct which
 // describes a session instance while creation.
 type SessionCreate struct {
-	ID        int    `json:"id" form:"id"`
-	IP        string `json:"ip" form:"ip"`
-	UserAgent string `json:"userAgent" form:"userAgent"`
+	IP          string `json:"ip" form:"ip"`
+	AccessToken string `json:"accessToken" form:"accessToken"`
+	UserAgent   string `json:"userAgent" form:"userAgent"`
 }
