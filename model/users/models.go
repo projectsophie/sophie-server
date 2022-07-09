@@ -1,7 +1,7 @@
-package model
+package users
 
 // User is a struct which
-// describes a user instance for database.
+// describes a users instance for database.
 type User struct {
 	ID            int    // ID is "id" field in database.
 	Firstname     string // Firstname is "firstname" field in database.
@@ -15,21 +15,12 @@ type User struct {
 	Workspaces    string // Workspaces are "workspaces" field in database. (Contains ids of workspaces declared in workspaces database)
 }
 
-// Workspace is a struct which
-// describes a workspace instance for database.
-type Workspace struct {
-	ID           int    // id is "id" field in database.
-	CreationDate string // CreationDate is "creationDate" field in database.
-	Members      string // members are "members" field in database. (Contains json of members with their ids and permissions)
-	Pages        string // pages is "pages" field in database. (Contains json of pages with their metadata and types)
-}
-
 // Session is a struct that represents a session.
 type Session struct {
 	ID            int    // ID is id of session.
 	CreationDate  string // CreationDate is a creation date of session.
 	LastUsageDate string // LastUsageDate is a last usage date of session.
 	IP            string // IP is an IP-Address which was used for session creation.
-	UserAgent     string // UserAgent is a user agent which was used for session creation.
+	UserAgent     string // UserAgent is a users agent which was used for session creation.
 	AccessToken   string // AccessToken is an access token of session.
 }

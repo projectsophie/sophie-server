@@ -18,7 +18,7 @@ func GetRouter() *gin.Engine {
 	panic("Router not initialized. Seems, that InitRouter() hasn't been executed or router hasn't been initialized.")
 }
 
-// InitUserRoutes initializes user routes.
+// InitUserRoutes initializes users routes.
 func InitUserRoutes() {
 	userRoutes := router.Group("/api/users", auth.AuthorizeJWT())
 	{

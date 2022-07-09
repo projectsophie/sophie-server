@@ -1,7 +1,7 @@
-package model
+package users
 
 // UserCreate is a struct which
-// describes a user instance while registration.
+// describes a users instance while registration.
 // Other fields like workspaces array are filled via SQL automatically.
 type UserCreate struct {
 	Firstname string `json:"firstname" form:"firstname" binding:"required"`
@@ -12,14 +12,14 @@ type UserCreate struct {
 }
 
 // UserAuth is a struct which
-// describes a user instance while authentication.
+// describes a users instance while authentication.
 type UserAuth struct {
 	Username string `json:"username" form:"username" binding:"required"`
 	Password string `json:"password" form:"password" binding:"required"`
 }
 
 // UserGet is a struct which
-// describes a user instance while getting.
+// describes a users instance while getting.
 type UserGet struct {
 	Firstname  string `json:"firstname" form:"firstname"`
 	Lastname   string `json:"lastname" form:"lastname"`

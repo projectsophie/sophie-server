@@ -5,7 +5,7 @@ import (
 	"sophie-server/util"
 )
 
-// LoginVerify verifies user's credentials and returns if user is valid.
+// LoginVerify verifies users's credentials and returns if users is valid.
 func LoginVerify(username string, password string) bool {
 	user, success := store.GetUserByNickname(username)
 	return success && util.VerifyPassword(user.Password, []byte(password))

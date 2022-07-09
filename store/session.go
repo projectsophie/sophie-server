@@ -2,12 +2,12 @@ package store
 
 import (
 	middleware "sophie-server/middleware/session"
-	"sophie-server/model"
+	"sophie-server/model/users"
 )
 
 // ApplySession is a method
-// that applies a session to a user via session array in user struct.
-func ApplySession(session model.Session, user *model.User) {
+// that applies a session to a users via session array in users struct.
+func ApplySession(session users.Session, user *users.User) {
 	sessionsArray := middleware.GetSessionsFromJson(user.Sessions)
 	session.ID = len(sessionsArray)
 	sessionsArray = append(sessionsArray, session)
@@ -15,8 +15,8 @@ func ApplySession(session model.Session, user *model.User) {
 }
 
 // RemoveSession is a method
-// that removes a session from a user via session array in user struct.
-func RemoveSession(token string, user *model.User) {
+// that removes a session from a users via session array in users struct.
+func RemoveSession(token string, user *users.User) {
 	sessionsArray := middleware.GetSessionsFromJson(user.Sessions)
 	for i := 0; i < len(sessionsArray); i++ {
 		if sessionsArray[i].AccessToken == token {

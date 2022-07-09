@@ -7,7 +7,7 @@ import (
 )
 
 // Database variables.
-// usersDatabase is a database with user data.
+// usersDatabase is a database with users data.
 // workspacesDatabase is a database with workspaces data.
 var (
 	usersDatabase      *sql.DB

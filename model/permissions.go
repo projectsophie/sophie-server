@@ -6,13 +6,13 @@ type Permission string
 
 // Available permissions list
 const (
-	// ReadPermission allows user to view and read workspace materials,
+	// ReadPermission allows users to view and read workspaces materials,
 	// but denies any editing action.
 	ReadPermission Permission = "READ_PERMISSION"
-	// EditPermission allows user to view, read and edit workspace materials,
-	// but denies any admin action (like changing permissions for a user).
+	// EditPermission allows users to view, read and edit workspaces materials,
+	// but denies any admin action (like changing permissions for a users).
 	EditPermission Permission = "EDIT_PERMISSION"
-	// AdministratePermission allows user to do anything he wants
+	// AdministratePermission allows users to do anything he wants
 	// like editing, reading and managing members permissions.
 	AdministratePermission Permission = "ADMIN_PERMISSION"
 )
