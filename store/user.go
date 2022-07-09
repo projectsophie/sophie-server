@@ -36,7 +36,7 @@ func GetUserByNickname(nickname string) (users.User, bool) {
 		err := rows.Scan(&user.ID, &user.Firstname, &user.Lastname, &user.Nickname, &user.Password, &user.Email, &user.RegisterDate, &user.EmailVerified, &user.Sessions, &user.Workspaces)
 		if err != nil {
 			fmt.Println(err)
-			return user.User{}, false
+			return users.User{}, false
 		}
 	}
 	return user, true
@@ -51,7 +51,7 @@ func GetUserByID(id int) (users.User, bool) {
 	for rows.Next() {
 		err := rows.Scan(&user.ID, &user.Firstname, &user.Lastname, &user.Nickname, &user.Password, &user.Email, &user.EmailVerified, &user.Workspaces)
 		if err != nil {
-			return user.User{}, false
+			return users.User{}, false
 		}
 	}
 	return user, true
@@ -88,7 +88,7 @@ func GetUserByToken(token string) (users.User, bool) {
 }
 
 // AppendSession appends a provided session
-// to users's sessions array who was provided by token.
+// to user's sessions array who was provided by token.
 func AppendSession(session users.Session) {
 	if user, success := GetUserByToken(session.AccessToken); success {
 		ApplySession(session, &user)
@@ -97,7 +97,7 @@ func AppendSession(session users.Session) {
 }
 
 // DeleteSession removes a provided session
-// from users's sessions array who was provided by token.
+// from user's sessions array who was provided by token.
 func DeleteSession(token string) {
 	if user, success := GetUserByToken(token); success {
 		RemoveSession(token, &user)
