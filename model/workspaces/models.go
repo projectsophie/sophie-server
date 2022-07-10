@@ -1,7 +1,7 @@
 package workspaces
 
 // Workspace is a struct which
-// describes a workspaces instance for database.
+// describes a workspace instance for database.
 type Workspace struct {
 	ID           int    // id is "id" field in database.
 	Title        string // title is "title" field in database.
