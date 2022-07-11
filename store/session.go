@@ -26,3 +26,12 @@ func RemoveSession(token string, user *users.User) {
 	}
 	user.Sessions = middleware.ConvertSessionsToJson(sessionsArray)
 }
+
+// DeleteSession removes a provided session
+// from user's sessions array who was provided by token.
+func DeleteSession(token string) {
+	if user, success := GetUserByToken(token); success {
+		RemoveSession(token, &user)
+		user.UpdateUser()
+	}
+}

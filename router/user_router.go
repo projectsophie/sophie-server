@@ -23,7 +23,7 @@ func CreateUser(c *gin.Context) {
 func AuthUser(c *gin.Context) {
 	token := service.Login(c)
 	if token != "" {
-		store.AppendSession(session.GenerateSession(c, token))
+		session.GenerateSession(c, token).AppendSession()
 		c.JSON(http.StatusOK, gin.H{"token": token})
 	} else {
 		c.JSON(http.StatusUnauthorized, nil)

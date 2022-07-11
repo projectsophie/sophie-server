@@ -1,4 +1,4 @@
-package model
+package pages
 
 // Permission is a special type for declaring permissions
 // which are based on strings.
