@@ -4,18 +4,21 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"sophie-server/middleware/session"
-	"sophie-server/model/users"
+	mod "sophie-server/model/pages/types"
 	"sophie-server/service"
 	"sophie-server/store"
 )
 
 // CreateUser Creates users instance and adds it to database
 func CreateUser(c *gin.Context) {
-	var userCreate users.UserCreate
-	if err := c.BindJSON(&userCreate); err != nil {
-		return
-	}
-	c.IndentedJSON(http.StatusOK, store.CreateUser(userCreate))
+	//var userCreate users.UserCreate
+	//if err := c.BindJSON(&userCreate); err != nil {
+	//	return
+	//}
+	//c.IndentedJSON(http.StatusOK, store.CreateUser(userCreate))
+	table := mod.Table{ID: 1, Title: "Test", Workspace: 1, Type: "Table", Columns: []map[string]interface{}{{"dd": "dddd", "ddf": 2}}, Strings: []map[string]interface{}{{"Test": 2, "Test2": 3}}}
+	test := table.GetMetadata()
+	c.JSON(http.StatusOK, test)
 }
 
 // AuthUser is a method that generates a JWT token for users via gin's context

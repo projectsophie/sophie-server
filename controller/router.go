@@ -25,7 +25,7 @@ func InitUserRoutes() {
 		userRoutes.GET("/me", routers.GetCurrentUser)
 		userRoutes.GET("/logout", routers.Logout)
 	}
-	router.POST("/api/users/create", routers.CreateUser)
+	router.GET("/api/users/create", routers.CreateUser)
 	router.POST("/api/users/auth", routers.AuthUser)
 }
 
