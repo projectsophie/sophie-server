@@ -1,17 +1,22 @@
 package types
 
+// Checkbox is a struct which
+// describes a checkbox type for database.
 type Checkbox struct {
-	State bool
+	State bool // State is a state of checkbox.
 }
 
-func ReverseState(control *Checkbox) {
+// ReverseState reverses the state of checkbox.
+func (control *Checkbox) ReverseState() {
 	control.State = !control.State
 }
 
-func SetState(control *Checkbox, state bool) {
+// SetState sets the state of checkbox (state variable)
+func (control *Checkbox) SetState(state bool) {
 	control.State = state
 }
 
-func (checkbox *Checkbox) IsValidJson(json string) bool {
+// IsValidJson is an implementation of Control interface.
+func (control *Checkbox) IsValidJson(json string) bool {
 	return true
 }

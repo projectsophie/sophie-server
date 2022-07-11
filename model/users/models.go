@@ -21,6 +21,6 @@ type Session struct {
 	CreationDate  string // CreationDate is a creation date of session.
 	LastUsageDate string // LastUsageDate is a last usage date of session.
 	IP            string // IP is an IP-Address which was used for session creation.
-	UserAgent     string // UserAgent is a users agent which was used for session creation.
+	UserAgent     string // UserAgent is a user's agent which was used for session creation.
 	AccessToken   string // AccessToken is an access token of session.
 }

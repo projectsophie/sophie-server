@@ -58,7 +58,7 @@ func GetUserByID(id int) (users.User, bool) {
 }
 
 // UpdateUser updates users instance in database
-// via provided users instance (*model.User).
+// via provided users instance (*users.User).
 func UpdateUser(user *users.User) {
 	statement, _ := database.GetUsersDB().Prepare(database.UPDATE_USER)
 	_, err := statement.Exec(user.Firstname, user.Lastname, user.Nickname, user.Password, user.Email, user.EmailVerified, user.Sessions, user.Workspaces, user.ID)
