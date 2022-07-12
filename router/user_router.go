@@ -3,9 +3,9 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"sophie-server/middleware/auth"
 	"sophie-server/middleware/session"
 	"sophie-server/model/users"
-	"sophie-server/service"
 	"sophie-server/store"
 )
 
@@ -21,7 +21,7 @@ func CreateUser(c *gin.Context) {
 // AuthUser is a method that generates a JWT token for users via gin's context
 // or rejects the request if users data is not valid and not found in database.
 func AuthUser(c *gin.Context) {
-	token := service.Login(c)
+	token := auth.Login(c)
 	if token != "" {
 		session.GenerateSession(c, token).AppendSession()
 		c.JSON(http.StatusOK, gin.H{"token": token})
