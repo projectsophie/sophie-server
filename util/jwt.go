@@ -3,6 +3,7 @@ package util
 import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/gin-gonic/gin"
 	"time"
 )
 
@@ -48,4 +49,10 @@ func ParseToken(tokenStr string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 	return claims, nil
+}
+
+// GetToken returns token from provided request.
+func GetToken(c *gin.Context) string {
+	authHeader := c.GetHeader("Authorization")
+	return authHeader[len("Bearer "):]
 }

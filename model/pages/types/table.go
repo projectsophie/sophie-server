@@ -10,7 +10,7 @@ type Table struct {
 	Workspace int
 	Type      string
 	Columns   []map[string]interface{}
-	Strings   []map[string]interface{}
+	Strings   [][]map[string]interface{}
 }
 
 // TableJSON is a struct which
