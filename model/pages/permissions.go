@@ -15,4 +15,8 @@ const (
 	// AdministratePermission allows users to do anything he wants
 	// like editing, reading and managing members permissions.
 	AdministratePermission Permission = "ADMIN_PERMISSION"
+	// OwnerPermission allows users to do anything he wants.
+	// It's a special permission which is granted to the owner of the workspace.
+	// It's granted automatically when a user creates a workspace.
+	OwnerPermission Permission = "OWNER_PERMISSION"
 )

@@ -3,6 +3,7 @@ package store
 import (
 	"sophie-server/database"
 	"sophie-server/model/pages"
+	"time"
 )
 
 // GetCommentsByPage returns all comments from provided page id.
@@ -26,7 +27,9 @@ func DeleteCommentById(id int) {
 	_, _ = statement.Query(id)
 }
 
+// CreateComment creates new comment in database.
 func CreateComment(comment *pages.Comment) {
+	// TODO: Validate comment page if user has access to it.
 	statement, _ := database.GetWorkspacesDB().Prepare(database.CreateComment)
-	_, _ = statement.Query(comment.AuthorID, comment.PageID, comment.Text)
+	_, _ = statement.Query(comment.AuthorID, comment.PageID, comment.Text, time.Now().Format("2006-01-02 15:04:05"))
 }

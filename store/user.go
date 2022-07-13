@@ -73,5 +73,5 @@ func CreateUser(model users.UserCreate) gin.H {
 		array := strings.Split(err.Error(), ".")
 		return gin.H{"error": fmt.Sprintf("an users with this %s already exist", array[len(array)-1])}
 	}
-	return gin.H{"message": "a new users was successfully created"}
+	return gin.H{"message": "a new user was successfully created"}
 }
