@@ -13,7 +13,7 @@ import (
 // GetUserByNickname returns users instance by provided nickname
 // if it was found in database.
 func GetUserByNickname(nickname string) (users.User, bool) {
-	statement, _ := database.GetUsersDB().Prepare(database.GET_USER_BY_NICKNAME)
+	statement, _ := database.GetUsersDB().Prepare(database.GetUserByNickname)
 	rows, _ := statement.Query(nickname)
 	var user users.User
 	for rows.Next() {
@@ -29,7 +29,7 @@ func GetUserByNickname(nickname string) (users.User, bool) {
 // GetUserByID returns users instance by provided id
 // if it was found in database.
 func GetUserByID(id int) (users.User, bool) {
-	statement, _ := database.GetUsersDB().Prepare(database.GET_USER_BY_ID)
+	statement, _ := database.GetUsersDB().Prepare(database.GetUserById)
 	rows, _ := statement.Query(id)
 	var user users.User
 	for rows.Next() {
@@ -66,7 +66,7 @@ func CreateUser(model users.UserCreate) gin.H {
 	if len(model.Firstname) < 2 || len(model.Lastname) < 2 || len(model.Password) < 8 || len(model.Nickname) < 3 {
 		return gin.H{"error": "invalid data"}
 	}
-	statement, _ := database.GetUsersDB().Prepare(database.CREATE_USER)
+	statement, _ := database.GetUsersDB().Prepare(database.CreateUser)
 	password := util.GenerateHash([]byte(model.Password))
 	_, err := statement.Exec(model.Firstname, model.Lastname, model.Nickname, password, model.Email, time.Now().Format("2006-01-02 15:04:05"))
 	if err != nil {

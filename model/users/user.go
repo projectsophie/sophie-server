@@ -51,7 +51,7 @@ type UserGet struct {
 // UpdateUser updates users instance in database
 // via provided users instance (*users.User).
 func (user *User) UpdateUser() {
-	statement, _ := database.GetUsersDB().Prepare(database.UPDATE_USER)
+	statement, _ := database.GetUsersDB().Prepare(database.UpdateUser)
 	_, err := statement.Exec(user.Firstname, user.Lastname, user.Nickname, user.Password, user.Email, user.EmailVerified, user.Sessions, user.Workspaces, user.ID)
 	if err != nil {
 		fmt.Println(err)

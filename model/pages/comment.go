@@ -7,5 +7,5 @@ type Comment struct {
 	CreationDate string // CreationDate is "creationDate" field in database.
 	Text         string // Text is "text" field in database.
 	PageID       int    // PageID is "pageID" field in database.
-	UserID       int    // UserID is "userID" field in database.
+	AuthorID     int    // AuthorID is "authorID" field in database.
 }
