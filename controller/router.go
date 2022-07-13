@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"sophie-server/middleware/auth"
 	routers "sophie-server/router"
-	"sophie-server/store"
 )
 
 // router is a main router.
@@ -27,7 +26,7 @@ func InitUserRoutes() {
 		userRoutes.GET("/logout", routers.Logout)
 		userRoutes.GET("/workspaces", routers.GetUserWorkspaces)
 	}
-	router.GET("/api/users/create", store.CreateUser)
+	router.GET("/api/users/create", routers.CreateUser)
 	router.POST("/api/users/auth", routers.AuthUser)
 }
 

@@ -23,7 +23,7 @@ func CreateWorkspace(c *gin.Context) {
 		if err := c.BindJSON(&workspaceModel); err != nil {
 			c.Status(http.StatusBadRequest)
 		} else {
-			c.IndentedJSON(http.StatusOK, CreateWorkspace(&workspaceModel, &member))
+			c.IndentedJSON(http.StatusOK, store.CreateWorkspace(&workspaceModel, &member))
 		}
 	} else {
 		c.JSON(401, gin.H{
