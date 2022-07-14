@@ -1,9 +1,5 @@
 package users
 
-import (
-	static "sophie-server/store"
-)
-
 // SessionCreate is a struct which
 // describes a session instance while creation.
 type SessionCreate struct {
@@ -20,22 +16,4 @@ type Session struct {
 	IP            string // IP is an IP-Address which was used for session creation.
 	UserAgent     string // UserAgent is a user's agent which was used for session creation.
 	AccessToken   string // AccessToken is an access token of session.
-}
-
-// AppendSession appends a provided session
-// to user's sessions array who was provided by token.
-func (session Session) AppendSession() {
-	if user, success := static.GetUserByToken(session.AccessToken); success {
-		static.ApplySession(session, &user)
-		user.UpdateUser()
-	}
-}
-
-// SessionCreateToSession converts SessionCreate to Session
-func (session *SessionCreate) SessionCreateToSession() Session {
-	return Session{
-		IP:          session.IP,
-		AccessToken: session.AccessToken,
-		UserAgent:   session.UserAgent,
-	}
 }
