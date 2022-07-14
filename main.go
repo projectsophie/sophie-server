@@ -7,11 +7,6 @@ import (
 	"strconv"
 )
 
-const (
-	host = "127.0.0.1" // host is an IP of Sophie server
-	port = 8080        // port is a port of Sophie server
-)
-
 func main() {
 	log.Println("Initializing a Sophie server...")
 	log.Println("Initializing databases...")

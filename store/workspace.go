@@ -9,7 +9,7 @@ import (
 )
 
 // CreateWorkspace creates a new workspace in database.
-func CreateWorkspace(workspace *workspaces.WorkspaceCreate, member *workspaces.WorkspaceMember) gin.H {
+func CreateWorkspace(workspace *workspaces.WorkspaceCreate, member *[]workspaces.WorkspaceMember) gin.H {
 	statement, _ := database.GetWorkspacesDB().Prepare(database.CreateWorkspace)
 	_, err := statement.Exec(workspace.Title, time.Now().Format("2006-01-02 15:04:05"), util.ToJson(member))
 	if err != nil {
