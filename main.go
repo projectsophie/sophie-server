@@ -4,6 +4,7 @@ import (
 	"log"
 	"sophie-server/controller"
 	"sophie-server/database"
+	"sophie-server/traits"
 	"strconv"
 )
 
@@ -13,7 +14,7 @@ func main() {
 	database.InitDB(true, true)
 	log.Println("Databases were initialized successfully.")
 	log.Println("Initializing server...")
-	InitServer(host, port)
+	InitServer(traits.Host, traits.Port)
 }
 
 // InitServer Initializes server and routers

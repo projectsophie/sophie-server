@@ -24,4 +24,8 @@ const (
 	GetCommentsByPage = "SELECT * FROM comments WHERE page = @page"
 	DeleteCommentById = "DELETE FROM comments WHERE id = @id"
 	CreateComment     = "INSERT INTO comments (author, page, content, creation_date) VALUES (?, ?, ?, ?)"
+
+	CreateInvitation  = "INSERT INTO invitations (workspace, host, expiration_date, usages, max_usages) VALUES (?, ?, ?, ?, ?)"
+	GetInvitationById = "SELECT * FROM invitations WHERE id = @id"
+	UpdateInvitation  = "UPDATE invitations SET expiration_date = @expiration_date, usages = @usages, max_usages = @max_usages WHERE id = @id"
 )
