@@ -54,5 +54,8 @@ func ParseToken(tokenStr string) (jwt.MapClaims, error) {
 // GetToken returns token from provided request.
 func GetToken(c *gin.Context) string {
 	authHeader := c.GetHeader("Authorization")
+	if len(authHeader) < 7 {
+		return ""
+	}
 	return authHeader[len("Bearer "):]
 }

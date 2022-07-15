@@ -75,3 +75,15 @@ func CreateUser(model users.UserCreate) gin.H {
 	}
 	return gin.H{"message": "a new user was successfully created"}
 }
+
+// IsUserInWorkspace parses a workspace member list
+// and checks if a user with given id (user) in this list.
+func IsUserInWorkspace(workspace int, user int) bool {
+	members := GetMemberList(workspace)
+	for i := 0; i < len(members); i++ {
+		if members[i].ID == user {
+			return false
+		}
+	}
+	return true
+}

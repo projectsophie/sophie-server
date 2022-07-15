@@ -12,7 +12,7 @@ import (
 func AuthorizeJWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, _ := util.ValidateToken(util.GetToken(c))
-		if !token.Valid {
+		if token == nil || !token.Valid {
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 	}

@@ -1,6 +1,7 @@
 package store
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"sophie-server/database"
 	"sophie-server/model/workspaces"
@@ -20,4 +21,14 @@ func CreateWorkspace(workspace *workspaces.WorkspaceCreate, member *[]workspaces
 	return gin.H{
 		"message": "workspace created successfully",
 	}
+}
+
+// GetMemberList returns an array of workspace members taken from database.
+func GetMemberList(workspace int) []workspaces.WorkspaceMember {
+	statement, _ := database.GetWorkspacesDB().Prepare(database.GetWorkspaceMembersById)
+	var metadata string
+	_ = statement.QueryRow(workspace).Scan(&metadata)
+	var members []workspaces.WorkspaceMember
+	_ = json.Unmarshal([]byte(metadata), &members)
+	return members
 }

@@ -38,9 +38,18 @@ func InitWorkspaceRoutes() {
 	}
 }
 
+// InitInvitationRoutes initializes invitation routes.
+func InitInvitationRoutes() {
+	//invitationRoutes := router.Group("/", auth.AuthorizeJWT())
+	//{
+	//		invitationRoutes.GET("invitation", routers.)
+	//}
+}
+
 // InitRouter initializes main router.
 func InitRouter() {
 	router = gin.Default()
 	InitUserRoutes()
 	InitWorkspaceRoutes()
+	InitInvitationRoutes()
 }

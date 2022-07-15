@@ -19,6 +19,9 @@ func GenerateClaims(create *workspaces.InvitationCreate) workspaces.InvitationGe
 	}
 }
 
+// CreateInvitationLink creates invitation link
+// which can be used by another user to join workspace.
+// Link cannot be used by members of provided workspace.
 func CreateInvitationLink(generate *workspaces.InvitationGenerate) string {
 	rawInvite := jwt.NewWithClaims(jwt.SigningMethodHS256, generate)
 	inviteLink, err := rawInvite.SignedString([]byte(util.GetSecretKey()))
@@ -32,13 +35,14 @@ func CreateInvitationLink(generate *workspaces.InvitationGenerate) string {
 // It increases the number of usages and updates
 // invitation in database.
 func UseInvitation(c *gin.Context) {
+	user, _ := GetUserByToken(util.GetToken(c))
 	rawInvitation, _ := c.GetQuery("code")
 	if _, err := util.ValidateToken(rawInvitation); err == nil {
 		metadata, err := util.ParseToken(rawInvitation)
 		if err == nil {
 			invitation, success := GetInvitationById(metadata["id"].(int))
 			if success {
-				if invitation.IsAvailable() {
+				if invitation.IsAvailable() && !IsUserInWorkspace(invitation.WorkspaceID, user.ID) {
 					invitation.Use()
 					UpdateInvitation(&invitation)
 					c.JSON(http.StatusOK, gin.H{"message": "invite link was successfully used"})
@@ -49,6 +53,8 @@ func UseInvitation(c *gin.Context) {
 	c.JSON(http.StatusForbidden, gin.H{"error": "invalid invite link"})
 }
 
+// GetInvitationById returns invitation with provided id
+// from database if it exists.
 func GetInvitationById(id int) (workspaces.Invitation, bool) {
 	statement, _ := database.GetWorkspacesDB().Prepare(database.GetInvitationById)
 	row, _ := statement.Query(id)
