@@ -45,6 +45,7 @@ func UseInvitation(c *gin.Context) {
 				if invitation.IsAvailable() && !IsUserInWorkspace(invitation.WorkspaceID, user.ID) {
 					invitation.Use()
 					UpdateInvitation(&invitation)
+					AddMember(&user, invitation.WorkspaceID)
 					c.JSON(http.StatusOK, gin.H{"message": "invite link was successfully used"})
 				}
 			}

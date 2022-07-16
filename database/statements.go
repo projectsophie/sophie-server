@@ -20,6 +20,7 @@ const (
 	CreateWorkspace         = "INSERT INTO workspaces (title, creation_date, members) VALUES (?, ?, ?)"
 	UpdateWorkspace         = "UPDATE workspaces SET title = @title, creation_date = @creation_date, members = @members, pages = @pages WHERE id = @id"
 	DeleteWorkspaceById     = "DELETE FROM workspaces WHERE id = @id"
+	GetWorkspaceById        = "SELECT * FROM workspaces WHERE id = @id"
 	GetWorkspaceMembersById = "SELECT members FROM workspaces WHERE id = @id"
 
 	GetCommentsByPage = "SELECT * FROM comments WHERE page = @page"

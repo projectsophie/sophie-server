@@ -44,7 +44,7 @@ func GetUserByID(id int) (users.User, bool) {
 // GetAuthedUser returns users instance (model.UserGet) by provided token.
 func GetAuthedUser(token string) (users.UserGet, bool) {
 	if user, success := GetUserByToken(token); success {
-		return user.UserToUserGet(), true
+		return user.AsUserGet(), true
 	}
 	return users.UserGet{}, false
 }

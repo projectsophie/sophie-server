@@ -31,3 +31,7 @@ func CreateWorkspace(c *gin.Context) {
 		})
 	}
 }
+
+func UseInvitation(c *gin.Context) {
+	store.UseInvitation(c)
+}

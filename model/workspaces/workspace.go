@@ -1,5 +1,7 @@
 package workspaces
 
+import "sophie-server/database"
+
 // Workspace is a struct which
 // describes a workspace instance for database.
 type Workspace struct {
@@ -32,4 +34,11 @@ type WorkspaceMember struct {
 	Permissions string `json:"permissions" form:"permissions"`
 	JoinedAt    string `json:"joinedAt" form:"joinedAt"`
 	LastSeen    string `json:"lastSeen" form:"lastSeen"`
+}
+
+// UpdateWorkspace updates provided Workspace
+// instance in database.
+func (workspace *Workspace) UpdateWorkspace() {
+	statement, _ := database.GetWorkspacesDB().Prepare(database.UpdateWorkspace)
+	_, _ = statement.Exec(workspace.Title, workspace.CreationDate, workspace.Members, workspace.Pages, workspace.ID)
 }

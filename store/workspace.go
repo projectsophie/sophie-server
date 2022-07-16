@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"sophie-server/database"
+	"sophie-server/model/users"
 	"sophie-server/model/workspaces"
 	"sophie-server/util"
 	"time"
@@ -28,7 +29,35 @@ func GetMemberList(workspace int) []workspaces.WorkspaceMember {
 	statement, _ := database.GetWorkspacesDB().Prepare(database.GetWorkspaceMembersById)
 	var metadata string
 	_ = statement.QueryRow(workspace).Scan(&metadata)
+	return GetWorkspaceMembersFromJson(metadata)
+}
+
+// GetWorkspaceMembersFromJson parses given string
+// from database and converts it to []workspaces.Workspace.
+func GetWorkspaceMembersFromJson(metadata string) []workspaces.WorkspaceMember {
 	var members []workspaces.WorkspaceMember
 	_ = json.Unmarshal([]byte(metadata), &members)
 	return members
+}
+
+// AddMember adds provided user model as workspaces.WorkspaceMember
+// to workspaces.Workspace with provided id and updates
+// it in database.
+func AddMember(user *users.User, workspace int) {
+	statement, _ := database.GetWorkspacesDB().Prepare(database.GetWorkspaceById)
+	row := statement.QueryRow(workspace)
+	var workspaceModel workspaces.Workspace
+	var __users string
+	err := row.Scan(
+		&workspaceModel.ID,
+		&workspaceModel.Title,
+		&workspaceModel.CreationDate,
+		&__users,
+		&workspaceModel.Pages)
+	if err == nil {
+		workspaceModel.Members = append(
+			GetWorkspaceMembersFromJson(__users),
+			user.AsWorkspaceMember())
+		workspaceModel.UpdateWorkspace()
+	}
 }

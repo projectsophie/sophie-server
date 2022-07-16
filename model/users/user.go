@@ -3,6 +3,9 @@ package users
 import (
 	"fmt"
 	"sophie-server/database"
+	"sophie-server/model/pages"
+	"sophie-server/model/workspaces"
+	"time"
 )
 
 // User is a struct which
@@ -58,14 +61,25 @@ func (user *User) UpdateUser() {
 	}
 }
 
-// UserToUserGet converts User to UserGet
+// AsUserGet converts User to UserGet
 // via getting fields from User model.
-func (user *User) UserToUserGet() UserGet {
+func (user *User) AsUserGet() UserGet {
 	return UserGet{
 		Firstname:  user.Firstname,
 		Lastname:   user.Lastname,
 		Nickname:   user.Nickname,
 		Email:      user.Email,
 		Workspaces: user.Workspaces,
+	}
+}
+
+// AsWorkspaceMember converts User instance
+// to workspaces.WorkspaceMember instance.
+func (user *User) AsWorkspaceMember() workspaces.WorkspaceMember {
+	return workspaces.WorkspaceMember{
+		ID:          user.ID,
+		Permissions: string(pages.EditPermission),
+		JoinedAt:    time.Now().Format("2006-01-02 15:04:05"),
+		LastSeen:    "NA",
 	}
 }
