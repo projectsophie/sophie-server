@@ -25,6 +25,8 @@ func InitUserRoutes() {
 		userRoutes.GET("/me", routers.GetCurrentUser)
 		userRoutes.GET("/logout", routers.Logout)
 		userRoutes.GET("/workspaces", routers.GetUserWorkspaces)
+		userRoutes.DELETE("/comment/delete", routers.DeleteComment)
+		userRoutes.POST("/comment/create", routers.CreateComment)
 	}
 	router.GET("/api/users/create", routers.CreateUser)
 	router.POST("/api/users/auth", routers.AuthUser)
@@ -40,10 +42,10 @@ func InitWorkspaceRoutes() {
 
 // InitInvitationRoutes initializes invitation routes.
 func InitInvitationRoutes() {
-	//invitationRoutes := router.Group("/", auth.AuthorizeJWT())
-	//{
-	//		invitationRoutes.GET("invitation", routers.)
-	//}
+	invitationRoutes := router.Group("/", auth.AuthorizeJWT())
+	{
+		invitationRoutes.GET("invitation", routers.UseInvitation)
+	}
 }
 
 // InitRouter initializes main router.

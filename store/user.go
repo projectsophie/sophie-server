@@ -87,3 +87,17 @@ func IsUserInWorkspace(workspace int, user int) bool {
 	}
 	return true
 }
+
+// UpdateUser updates user via users.UserUpdate
+// model. It takes a users.User model from database
+// and updates struct fields.
+func UpdateUser(model *users.UserUpdate) {
+	user, success := GetUserByNickname(model.Nickname)
+	if success {
+		user.Nickname = model.Nickname
+		user.Firstname = model.Firstname
+		user.Lastname = model.Lastname
+		user.Email = model.Email
+		user.Password = util.GenerateHash([]byte(model.Password))
+	}
+}

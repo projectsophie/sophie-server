@@ -6,3 +6,7 @@ type Page interface {
 	GetMetadata() string         // GetMetadata returns a JSON string of metadata of page.
 	GetAsJsonModel() interface{} // GetAsJsonModel returns a JSON string of page.
 }
+
+func GetTypes() []string {
+	return []string{"table"}
+}

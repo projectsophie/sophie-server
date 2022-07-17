@@ -35,6 +35,8 @@ func InitDB(users bool, workspaces bool) {
 		_, _ = statement.Exec()
 		statement, _ = workspacesDatabase.Prepare(InvitationsPrepare)
 		_, _ = statement.Exec()
+		statement, _ = workspacesDatabase.Prepare(PagesPrepare)
+		_, _ = statement.Exec()
 		log.Println("Workspaces database was initialized successfully.")
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"sophie-server/middleware/auth"
 	"sophie-server/middleware/session"
+	"sophie-server/model/pages"
 	"sophie-server/model/users"
 	"sophie-server/store"
 	"sophie-server/util"
@@ -56,5 +57,52 @@ func GetUserWorkspaces(c *gin.Context) {
 		c.IndentedJSON(http.StatusOK, userGet.Workspaces)
 	} else {
 		c.JSON(http.StatusUnauthorized, nil)
+	}
+}
+
+// UpdateUser updates user's data in database
+// with given data in users.UserUpdate model.
+func UpdateUser(c *gin.Context) {
+	var user users.UserUpdate
+	if err := c.BindJSON(&user); err != nil {
+		return
+	}
+	store.UpdateUser(&user)
+}
+
+// CreateComment creates comment via gin.Context.
+// It binds pages.CommentCreate model from request
+// and adds comment instance to database.
+func CreateComment(c *gin.Context) {
+	var comment pages.CommentCreate
+	if err := c.BindJSON(&comment); err != nil {
+		return
+	}
+	user, success := store.GetUserByToken(util.GetToken(c))
+	if success {
+		store.CreateComment(&comment, user.ID)
+		c.Status(http.StatusCreated)
+	} else {
+		c.Status(http.StatusBadRequest)
+	}
+}
+
+// DeleteComment deletes comment from database.
+// It checks if user has access to provided page
+// and user is allowed to manage provided comment.
+func DeleteComment(c *gin.Context) {
+	var comment pages.CommentDelete
+	if err := c.BindJSON(&comment); err != nil {
+		return
+	}
+	user, success := store.GetUserByToken(util.GetToken(c))
+	if success {
+		if store.DeleteCommentById(&comment, &user) {
+			c.Status(http.StatusOK)
+		} else {
+			c.Status(http.StatusAlreadyReported)
+		}
+	} else {
+		c.Status(http.StatusBadRequest)
 	}
 }

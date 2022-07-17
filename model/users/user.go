@@ -51,6 +51,16 @@ type UserGet struct {
 	Workspaces string `json:"workspaces" form:"workspaces"`
 }
 
+// UserUpdate is a struct which
+// describes user model for updating in database.
+type UserUpdate struct {
+	Firstname string `json:"firstname" form:"firstname"`
+	Lastname  string `json:"lastname" form:"lastname"`
+	Nickname  string `json:"nickname" form:"nickname"`
+	Email     string `json:"email" form:"email"`
+	Password  string `json:"password" form:"password"`
+}
+
 // UpdateUser updates users instance in database
 // via provided users instance (*users.User).
 func (user *User) UpdateUser() {
